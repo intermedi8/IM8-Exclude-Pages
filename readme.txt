@@ -1,0 +1,55 @@
+=== IM8 Exclude Pages ===
+Contributors: intermedi8
+Donate link: http://intermedi8.de
+Tags: exclude, pages, cms, hide, disable, navigation, menu
+Requires at least: 2.9.2
+Tested up to: 3.7.1
+Stable tag: trunk
+License: MIT
+License URI: http://opensource.org/licenses/MIT
+
+Adds a meta box to the _Edit Page_ page where you can set to show or exclude the page from page listings.
+
+== Description ==
+
+**Adds a meta box to the _Edit Page_ page where you can set to show or exclude the page from page listings.**
+
+* Automatic exclusion of child pages
+* Individually disable and enable the plugin filter
+* Multilanguage: currently english and german (please help us with translations if you want to see additional languages)
+* Ad-free (of course, donations are welcome)
+
+If you would like to **contribute** to this plugin, see its <a href="https://github.com/intermedi8/im8-exclude-pages" target="_blank">**GitHub repository**</a>.
+
+== Installation ==
+
+1. Upload the `im8-exclude-pages` folder to the `/wp-content/plugins` directory on your web server.
+2. Activate the plugin through the _Plugins_ menu in WordPress.
+3. Find the new _Exclude Page_ meta box on the regular _Edit Page_ page
+
+== Frequently Asked Questions ==
+
+= Is there a way to (temporarily) disable the plugin filter? =
+
+Yes, there is. Suppose you want to exclude a page from your menu but show it in your sitemap (both generated with `wp_list_pages`). To do so, just use the `disable_im8_exclude_pages()` function right before building your sitemap. If you would like to re-enable the filter (e.g., if you have a footer menu, where you want to excvlude the page again), you may do so by calling the `enable_im8_exclude_pages()` function.
+
+== Screenshots ==
+
+1. **Meta box on the page editor** - Here you can toggle the exclusion status for each page.
+2. **Example of a child page with excluded ancestor** - You get notified that the child page will be automatically excluded too.
+3. **Setting for new pages** - Automatically exclude new pages by default.
+
+== Changelog ==
+
+= 2.0 =
+* Complete refactoring
+* New `disable_im8_exclude_pages` and `enable_im8_exclude_pages` functions to individually disable and enable the plugin filter (e.g., if you want to exclude several pages from your menu, and include them in your sitemap)
+* More usage of WordPress core functions
+* Moved screenshot to `assets` folder
+* Added banner image
+
+= 1.16 =
+* Checked for WP 3.5 compatibility
+
+= 1.15 =
+* Removed deprecated parameter (credits for the hint go to ijo)
