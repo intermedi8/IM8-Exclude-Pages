@@ -8,7 +8,7 @@ Stable tag: trunk
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
-Adds a meta box to the _Edit Page_ page where you can set to show or exclude the page from page listings.
+Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
 
 == Description ==
 
