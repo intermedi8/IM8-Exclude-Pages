@@ -41,6 +41,9 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.1 =
+* Fixed bug in `exclude_pages`/`get_excluded_pages` (thank you blizam for reporting this)
+
 = 2.0 =
 * Complete refactoring
 * New `disable_im8_exclude_pages` and `enable_im8_exclude_pages` functions to individually disable and enable the plugin filter (e.g., if you want to exclude several pages from your menu, and include them in your sitemap)

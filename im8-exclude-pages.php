@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Exclude Pages
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
  * Plugin URI: http://intermedi8.de
- * Version: 2.0
+ * Version: 2.1
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -418,17 +418,18 @@ class IM8ExcludePages {
 		if (! $this->is_enabled)
 			return $pages;
 
-		$excluded = $this->get_excluded_pages();
-		foreach ($pages as $key => $page) {
-			if (in_array($page->ID, $excluded))
-				unset($pages[$key]);
-			else {
-				wp_cache_delete($page->ID, 'posts');
-			 	foreach (get_post_ancestors($page->ID) as $ancestor)
-			 		if (in_array($ancestor, $excluded))
-			 			unset($pages[$key]);
+		if (count($excluded = $this->get_excluded_pages()))
+			foreach ($pages as $key => $page) {
+				if (in_array($page->ID, $excluded))
+					unset($pages[$key]);
+				else {
+					wp_cache_delete($page->ID, 'posts');
+					foreach (get_post_ancestors($page->ID) as $ancestor)
+						if (in_array($ancestor, $excluded))
+							unset($pages[$key]);
+				}
 			}
-		}
+
 		return $pages;
 	} // function exclude_pages
 
@@ -439,7 +440,9 @@ class IM8ExcludePages {
 	 * @return	array Page IDs of excluded pages.
 	 */
 	protected function get_excluded_pages() {
-		$excluded = $this->get_option('exclude_pages', array());
+		$excluded = $this->get_option('exclude_pages', '');
+		if (! is_string($excluded) || '' === $excluded)
+			return array();
 
 		return explode(',', $excluded);
 	} // function get_excluded_pages
