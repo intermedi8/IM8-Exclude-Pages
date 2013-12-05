@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: IM8 Exclude Pages
+ * Plugin URI: http://wordpress.org/plugins/im8-exclude-pages/
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
- * Plugin URI: http://intermedi8.de
- * Version: 2.1
+ * Version: 2.2
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -13,10 +13,7 @@
  */
 
 
-if (IM8ExcludePages::has_to_be_loaded())
-	add_action('wp_loaded', array(IM8ExcludePages::get_instance(), 'init'));
-
-
+if (! class_exists('IM8ExcludePages')) :
 
 
 /**
@@ -37,7 +34,7 @@ class IM8ExcludePages {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.0';
+	protected $version = '2.2';
 
 
 	/**
@@ -46,14 +43,6 @@ class IM8ExcludePages {
 	 * @type	string
 	 */
 	protected static $page_base;
-
-
-	/**
-	 * Plugin base name.
-	 *
-	 * @type	string
-	 */
-	protected $plugin_base;
 
 
 	/**
@@ -89,13 +78,13 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Constructs class.
+	 * Constructor. Registers activation routine.
 	 *
-	 * @hook wp_loaded
+	 * @hook	wp_loaded
+	 * @return	void
 	 */
 	public function __construct() {
 		register_activation_hook(__FILE__, array(__CLASS__, 'activation'));
-		register_uninstall_hook(__FILE__, array(__CLASS__, 'uninstall'));
 	} // function __construct
 
 
@@ -114,13 +103,13 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Performs post-update actions.
+	 * Registers uninstall routine.
 	 *
 	 * @hook	activation
 	 * @return	void
 	 */
 	public static function activation() {
-		self::get_instance()->autoupgrade();
+		register_uninstall_hook(__FILE__, array(__CLASS__, 'uninstall'));
 	} // function activation
 
 
@@ -150,13 +139,15 @@ class IM8ExcludePages {
 	 */
 	public function init() {
 		if (is_admin()) {
+			add_action('admin_init', array($this, 'autoupdate'));
+
 			$pages = array(
 				'post',
 				'post-new',
 			);
 			if (in_array(self::$page_base, $pages)) {
 				add_action('add_meta_boxes', array($this, 'add_meta_box'));
-				add_action('save_post', array($this, 'update'));
+				add_action('save_post', array($this, 'update_option'));
 			}
 
 			if ('plugins' === self::$page_base)
@@ -171,6 +162,43 @@ class IM8ExcludePages {
 
 		add_filter('get_pages', array($this, 'exclude_pages'));
 	} // function init
+
+
+	/**
+	 * Checks for and performs necessary updates.
+	 *
+	 * @hook	admin_init
+	 * @return	void
+	 */
+	public function autoupdate() {
+		$options = $this->get_option();
+		$update_successful = true;
+
+		if (version_compare($options['version'], '2.0', '<')) {
+			$option_name_before_2_0 = 'im8-exclude-pages';
+			$exclude_pages = get_option($option_name_before_2_0);
+
+			$new_options = array();
+			$new_options['version'] = '2.0';
+
+			if (false !== $exclude_pages && '' !== $exclude_pages)
+				$new_options['exclude_pages'] = $exclude_pages;
+
+			if ($options['exclude_new_pages'])
+				$new_options['exclude_new_pages'] = true;
+
+			if (update_option($this->option_name, $new_options)) {
+				$options = $new_options;
+				$update_successful &= delete_option($option_name_before_2_0);
+			}
+			unset($new_options);
+		}
+
+		if ($update_successful) {
+			$options['version'] = $this->version;
+			update_option($this->option_name, $options);
+		}
+	} // function autoupdate
 
 
 	/**
@@ -198,30 +226,6 @@ class IM8ExcludePages {
 
 		return $option[$key];
 	} // function get_option
-
-
-	/**
-	 * Checks for and performs necessary upgrades.
-	 *
-	 * @return	void
-	 */
-	protected function autoupgrade() {
-		$options = $this->get_option();
-		$version = $this->get_option('version', 0);
-
-		if (version_compare($version, '2.0', '<')) {
-			$option_name_before_2_0 = 'im8-exclude-pages';
-			$exclude_pages = get_option($option_name_before_2_0);
-			$new_options = array();
-			$new_options['version'] = '2.0';
-			if (false !== $exclude_pages && '' !== $exclude_pages)
-				$new_options['exclude_pages'] = $exclude_pages;
-			if ($options['exclude_new_pages'])
-				$new_options['exclude_new_pages'] = true;
-			if (update_option($this->option_name, $new_options))
-				delete_option($option_name_before_2_0);
-		}
-	} // function autoupgrade
 
 
 	/**
@@ -281,7 +285,7 @@ class IM8ExcludePages {
 	 * @param	int $id ID of the saved post.
 	 * @return	int Post ID, in case no meta data was saved.
 	 */
-	public function update($id) {
+	public function update_option($id) {
 		if (
 			! isset($_POST[$this->nonce])
 			|| ! wp_verify_nonce($_POST[$this->nonce], basename(__FILE__))
@@ -311,7 +315,7 @@ class IM8ExcludePages {
 		else
 			$options['exclude_pages'] = implode(',', $excluded_pages);
 		update_option($this->option_name, $options);
-	} // function update
+	} // function update_option
 
 
 	/**
@@ -501,6 +505,10 @@ class IM8ExcludePages {
 }
 
 
+if (IM8ExcludePages::has_to_be_loaded())
+	add_action('wp_loaded', array(IM8ExcludePages::get_instance(), 'init'));
+
+
 
 
 /**
@@ -521,4 +529,7 @@ function disable_im8_exclude_pages() {
 function enable_im8_exclude_pages() {
 	IM8ExcludePages::get_instance()->enable();
 } // function enable_im8_exclude_pages
+
+
+endif; // if (! class_exists('IM8ExcludePages'))
 ?>

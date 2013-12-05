@@ -41,6 +41,11 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.2 =
+* Bugfix in `autoupdate` routine
+* wrapped plugin in `if (! class_exists('IM8ExcludePages'))`
+* optimized `uninstall` routine
+
 = 2.1 =
 * Fixed bug in `exclude_pages`/`get_excluded_pages` (thank you blizam for reporting this)
 
