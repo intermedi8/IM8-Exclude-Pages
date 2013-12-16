@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Exclude Pages
  * Plugin URI: http://wordpress.org/plugins/im8-exclude-pages/
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
- * Version: 2.2
+ * Version: 2.3
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -34,7 +34,7 @@ class IM8ExcludePages {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.2';
+	protected $version = '2.3';
 
 
 	/**

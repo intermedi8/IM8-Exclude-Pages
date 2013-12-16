@@ -3,7 +3,7 @@ Contributors: intermedi8
 Donate link: http://intermedi8.de
 Tags: exclude, pages, cms, hide, disable, navigation, menu
 Requires at least: 2.9.2
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: trunk
 License: MIT
 License URI: http://opensource.org/licenses/MIT
@@ -40,6 +40,9 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 3. **Setting for new pages** - Automatically exclude new pages by default.
 
 == Changelog ==
+
+= 2.3 =
+* Compatible up to WordPress 3.8
 
 = 2.2 =
 * Bugfix in `autoupdate` routine
