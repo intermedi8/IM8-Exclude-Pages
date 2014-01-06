@@ -41,6 +41,10 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.4 =
+* added direct access guard
+* removed trailing `?>`
+
 = 2.3 =
 * Compatible up to WordPress 3.8
 

@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Exclude Pages
  * Plugin URI: http://wordpress.org/plugins/im8-exclude-pages/
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
- * Version: 2.3
+ * Version: 2.4
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -11,6 +11,10 @@
  * Text Domain: im8-exclude-pages
  * Domain Path: /languages
  */
+
+
+if (! defined('ABSPATH'))
+	exit;
 
 
 if (! class_exists('IM8ExcludePages')) :
@@ -34,7 +38,7 @@ class IM8ExcludePages {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.3';
+	protected $version = '2.4';
 
 
 	/**
@@ -78,7 +82,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Constructor. Registers activation routine.
+	 * Constructor. Register activation routine.
 	 *
 	 * @hook	wp_loaded
 	 * @return	void
@@ -103,7 +107,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Registers uninstall routine.
+	 * Register uninstall routine.
 	 *
 	 * @hook	activation
 	 * @return	void
@@ -114,7 +118,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Checks if the plugin has to be loaded.
+	 * Check if the plugin has to be loaded.
 	 *
 	 * @return	boolean
 	 */
@@ -132,7 +136,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Registers plugin actions and filters.
+	 * Register plugin actions and filters.
 	 *
 	 * @hook	wp_loaded
 	 * @return	void
@@ -165,7 +169,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Checks for and performs necessary updates.
+	 * Check for and perform necessary updates.
 	 *
 	 * @hook	admin_init
 	 * @return	void
@@ -229,7 +233,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Adds plugin meta box for pages.
+	 * Add plugin meta box for pages.
 	 *
 	 * @hook	add_meta_boxes
 	 * @return	void
@@ -279,7 +283,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Updates option.
+	 * Update option.
 	 *
 	 * @hook	save_post
 	 * @param	int $id ID of the saved post.
@@ -319,7 +323,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Adds a link to the settings to the plugin list.
+	 * Add settings link to the plugin list.
 	 *
 	 * @hook	plugin_action_links_{$file}
 	 * @param	array $links Already existing links.
@@ -335,7 +339,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Registers setting for writing options page.
+	 * Register setting for writing options page.
 	 *
 	 * @hook	admin_init
 	 * @return	void
@@ -346,7 +350,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Prepares option values before they are saved.
+	 * Prepare option values before they are saved.
 	 *
 	 * @param	array $data Original option values.
 	 * @return	array Sanitized option values.
@@ -363,7 +367,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Registers settings section.
+	 * Register settings section.
 	 *
 	 * @hook	admin_init
 	 * @return	void
@@ -380,7 +384,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Prints checkbox into writing option page.
+	 * Print checkbox into writing option page.
 	 *
 	 * @see		register_settings()
 	 * @return	void
@@ -392,7 +396,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Prints settings checkbox.
+	 * Print settings checkbox.
 	 *
 	 * @param	string $label_for Checkbox label.
 	 * @return	void
@@ -412,7 +416,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Excludes pages from get_pages() result.
+	 * Exclude pages from get_pages() results.
 	 *
 	 * @filter	get_pages
 	 * @param	array $pages Page IDs.
@@ -439,7 +443,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Gets excluded pages.
+	 * Get excluded pages.
 	 *
 	 * @return	array Page IDs of excluded pages.
 	 */
@@ -453,7 +457,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Loads plugin textdomain.
+	 * Load plugin textdomain.
 	 *
 	 * @return	boolean
 	 */
@@ -473,7 +477,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Disables the plugin filter.
+	 * Disable the plugin filter.
 	 *
 	 * @return	void
 	 */
@@ -483,7 +487,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Enables the plugin filter.
+	 * Enable the plugin filter.
 	 *
 	 * @return	void
 	 */
@@ -493,7 +497,7 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Deletes plugin data on uninstall.
+	 * Delete plugin data on uninstall.
 	 *
 	 * @hook	uninstall
 	 * @return	void
@@ -512,7 +516,7 @@ if (IM8ExcludePages::has_to_be_loaded())
 
 
 /**
- * Disables the plugin filter.
+ * Disable the plugin filter.
  *
  * @return	void
  */
@@ -522,7 +526,7 @@ function disable_im8_exclude_pages() {
 
 
 /**
- * Enables the plugin filter.
+ * Enable the plugin filter.
  *
  * @return	void
  */
@@ -532,4 +536,3 @@ function enable_im8_exclude_pages() {
 
 
 endif; // if (! class_exists('IM8ExcludePages'))
-?>
