@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Exclude Pages
  * Plugin URI: http://wordpress.org/plugins/im8-exclude-pages/
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
- * Version: 2.4
+ * Version: 2.5
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -13,6 +13,7 @@
  */
 
 
+// Exit on direct access
 if (! defined('ABSPATH'))
 	exit;
 
@@ -38,7 +39,7 @@ class IM8ExcludePages {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.4';
+	protected $version = '2.5';
 
 
 	/**
@@ -118,21 +119,22 @@ class IM8ExcludePages {
 
 
 	/**
-	 * Check if the plugin has to be loaded.
+	 * Check if the plugin has to be initialized.
 	 *
+	 * @hook	plugins_loaded
 	 * @return	boolean
 	 */
-	public static function has_to_be_loaded() {
+	public static function init_on_demand() {
 		global $pagenow;
 
 		if (empty($pagenow))
-			return false;
+			return;
 
 		self::$page_base = basename($pagenow, '.php');
 
-		// Always load the plugin
-		return true;
-	} // function has_to_be_loaded
+		// Always initialize the plugin
+		add_action('wp_loaded', array(self::$instance, 'init'));
+	} // function init_on_demand
 
 
 	/**
@@ -506,11 +508,10 @@ class IM8ExcludePages {
 		delete_option(self::get_instance()->option_name);
 	} // function uninstall
 
-}
+} // class IM8ExcludePages
 
 
-if (IM8ExcludePages::has_to_be_loaded())
-	add_action('wp_loaded', array(IM8ExcludePages::get_instance(), 'init'));
+add_action('plugins_loaded', array(IM8ExcludePages::get_instance(), 'init_on_demand'));
 
 
 

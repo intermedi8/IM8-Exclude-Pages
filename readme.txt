@@ -41,6 +41,9 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.5 =
+* fixed bug that prevented plugin from being loaded when activated network-wide
+
 = 2.4 =
 * added direct access guard
 * removed trailing `?>`
