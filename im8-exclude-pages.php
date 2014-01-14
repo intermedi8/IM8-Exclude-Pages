@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Exclude Pages
  * Plugin URI: http://wordpress.org/plugins/im8-exclude-pages/
  * Description: Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings.
- * Version: 2.5
+ * Version: 2.6
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -39,7 +39,7 @@ class IM8ExcludePages {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.5';
+	protected $version = '2.6';
 
 
 	/**
@@ -75,6 +75,14 @@ class IM8ExcludePages {
 
 
 	/**
+	 * Plugin repository.
+	 *
+	 * @type	string
+	 */
+	protected $repository = 'im8-exclude-pages';
+
+
+	/**
 	 * Plugin status (enabled or disabled).
 	 *
 	 * @type	boolean
@@ -85,7 +93,7 @@ class IM8ExcludePages {
 	/**
 	 * Constructor. Register activation routine.
 	 *
-	 * @hook	wp_loaded
+	 * @see		get_instance()
 	 * @return	void
 	 */
 	public function __construct() {
@@ -96,7 +104,7 @@ class IM8ExcludePages {
 	/**
 	 * Get plugin instance.
 	 *
-	 * @hook	wp_loaded
+	 * @hook	plugins_loaded
 	 * @return	object IM8ExcludePages
 	 */
 	public static function get_instance() {
@@ -156,8 +164,10 @@ class IM8ExcludePages {
 				add_action('save_post', array($this, 'update_option'));
 			}
 
-			if ('plugins' === self::$page_base)
+			if ('plugins' === self::$page_base) {
 				add_filter('plugin_action_links_'.plugin_basename(__FILE__), array($this, 'add_settings_link'));
+				add_action('in_plugin_update_message-'.basename(dirname(__FILE__)).'/'.basename(__FILE__), array($this, 'update_message'), 10, 2);
+			}
 
 			if ('options' === self::$page_base)
 				add_action('admin_init', array($this, 'register_setting'));
@@ -341,6 +351,47 @@ class IM8ExcludePages {
 
 
 	/**
+	 * Print update message based on current plugin version's readme file.
+	 *
+	 * @hook	in_plugin_update_message-{$file}
+	 * @param	array $plugin_data Plugin metadata.
+	 * @param	array $r Metadata about the available plugin update.
+	 * @return	void
+	 */
+	public function update_message($plugin_data, $r) {
+		if ($plugin_data['update']) {
+			$readme = wp_remote_fopen('http://plugins.svn.wordpress.org/'.$this->repository.'/trunk/readme.txt');
+			if (! $readme)
+				return;
+
+			$pattern = '/==\s*Changelog\s*==(.*)=\s*'.preg_quote($this->version).'\s*=/s';
+			if (
+				false === preg_match($pattern, $readme, $matches)
+				|| ! isset($matches[1])
+			)
+				return;
+
+			$changelog = (array) preg_split('/[\r\n]+/', trim($matches[1]));
+			if (empty($changelog))
+				return;
+
+			$output = '<div style="margin: 8px 0 0 26px;">';
+			$output .= '<ul style="margin-left: 14px; line-height: 1.5; list-style: disc outside none;">';
+
+			$item_pattern = '/^\s*\*\s*/';
+			foreach ($changelog as $line)
+				if (preg_match($item_pattern, $line))
+					$output .= '<li>'.preg_replace('/`([^`]*)`/', '<code>$1</code>', htmlspecialchars(preg_replace($item_pattern, '', trim($line)))).'</li>';
+
+			$output .= '</ul>';
+			$output .= '</div>';
+
+			echo $output;
+		}
+	} // function update_message
+
+
+	/**
 	 * Register setting for writing options page.
 	 *
 	 * @hook	admin_init
@@ -354,6 +405,7 @@ class IM8ExcludePages {
 	/**
 	 * Prepare option values before they are saved.
 	 *
+	 * @see		register_setting()
 	 * @param	array $data Original option values.
 	 * @return	array Sanitized option values.
 	 */
@@ -388,7 +440,7 @@ class IM8ExcludePages {
 	/**
 	 * Print checkbox into writing option page.
 	 *
-	 * @see		register_settings()
+	 * @see		add_settings_section()
 	 * @return	void
 	 */
 	public function show_settings() {
@@ -400,6 +452,7 @@ class IM8ExcludePages {
 	/**
 	 * Print settings checkbox.
 	 *
+	 * @see		show_settings()
 	 * @param	string $label_for Checkbox label.
 	 * @return	void
 	 */
@@ -420,7 +473,7 @@ class IM8ExcludePages {
 	/**
 	 * Exclude pages from get_pages() results.
 	 *
-	 * @filter	get_pages
+	 * @hook	get_pages
 	 * @param	array $pages Page IDs.
 	 * @return	array Page IDs of not excluded pages only.
 	 */
@@ -481,6 +534,7 @@ class IM8ExcludePages {
 	/**
 	 * Disable the plugin filter.
 	 *
+	 * @see		disable_im8_exclude_pages()
 	 * @return	void
 	 */
 	public function disable() {
@@ -491,6 +545,7 @@ class IM8ExcludePages {
 	/**
 	 * Enable the plugin filter.
 	 *
+	 * @see		enable_im8_exclude_pages()
 	 * @return	void
 	 */
 	public function enable() {

@@ -41,6 +41,10 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.6 =
+* integrated plugin update message
+* corrected some DocBlocks
+
 = 2.5 =
 * fixed bug that prevented plugin from being loaded when activated network-wide
 
