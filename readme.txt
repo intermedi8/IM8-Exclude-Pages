@@ -3,7 +3,7 @@ Contributors: intermedi8
 Donate link: http://intermedi8.de
 Tags: exclude, pages, cms, hide, disable, navigation, menu
 Requires at least: 2.9.2
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: trunk
 License: MIT
 License URI: http://opensource.org/licenses/MIT
@@ -16,7 +16,7 @@ Adds a meta box to the Edit Page page where you can set to show or exclude the p
 
 * Automatic exclusion of child pages
 * Individually disable and enable the plugin filter
-* Multilanguage: currently english and german (please help us with translations if you want to see additional languages)
+* Multilanguage: currently English and German (please help us with translations if you want to see additional languages)
 * Ad-free (of course, donations are welcome)
 
 If you would like to **contribute** to this plugin, see its <a href="https://github.com/intermedi8/im8-exclude-pages" target="_blank">**GitHub repository**</a>.
@@ -41,6 +41,10 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 
 == Changelog ==
 
+= 2.6.1 =
+* compatible up to WordPress 3.8.1
+* added some `index.php` files
+
 = 2.6 =
 * integrated plugin update message
 * corrected some DocBlocks
@@ -53,25 +57,28 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 * removed trailing `?>`
 
 = 2.3 =
-* Compatible up to WordPress 3.8
+* compatible up to WordPress 3.8
 
 = 2.2 =
-* Bugfix in `autoupdate` routine
+* bugfix in `autoupdate` routine
 * wrapped plugin in `if (! class_exists('IM8ExcludePages'))`
 * optimized `uninstall` routine
 
 = 2.1 =
-* Fixed bug in `exclude_pages`/`get_excluded_pages` (thank you blizam for reporting this)
+* fixed bug in `exclude_pages`/`get_excluded_pages` (credits go to _blizam_ for reporting this)
 
 = 2.0 =
-* Complete refactoring
-* New `disable_im8_exclude_pages` and `enable_im8_exclude_pages` functions to individually disable and enable the plugin filter (e.g., if you want to exclude several pages from your menu, and include them in your sitemap)
-* More usage of WordPress core functions
-* Moved screenshot to `assets` folder
-* Added banner image
+* complete refactoring
+* new `disable_im8_exclude_pages` and `enable_im8_exclude_pages` functions to individually disable and enable the plugin filter (e.g., if you want to exclude several pages from your menu, and include them in your sitemap)
+* more usage of WordPress core functions
+* moved screenshot to `assets` folder
+* added banner image
 
 = 1.16 =
-* Checked for WP 3.5 compatibility
+* checked for WP 3.5 compatibility
 
 = 1.15 =
-* Removed deprecated parameter (credits for the hint go to ijo)
+* removed deprecated parameter (credits for the hint go to _ijo_)
+
+= 1.0 =
+* initial release
