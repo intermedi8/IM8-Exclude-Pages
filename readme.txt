@@ -1,5 +1,5 @@
 === IM8 Exclude Pages ===
-Contributors: intermedi8
+Contributors: intermedi8, ipm-frommen
 Donate link: http://intermedi8.de
 Tags: exclude, pages, cms, hide, disable, navigation, menu
 Requires at least: 2.9.2
@@ -40,6 +40,10 @@ Yes, there is. Suppose you want to exclude a page from your menu but show it in 
 3. **Setting for new pages** - Automatically exclude new pages by default.
 
 == Changelog ==
+
+= 2.7 =
+* code reformat
+* introduced new setting to automatically exclude pages from search results (thanks to _koroikoroi_ for the feature request)
 
 = 2.6.1 =
 * compatible up to WordPress 3.8.1

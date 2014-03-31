@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: IM8 Exclude Pages v2.2\n"
+"Project-Id-Version: IM8 Exclude Pages v2.7\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/im8-exclude-pages\n"
 "POT-Creation-Date: 2010-08-30 16:48+0000\n"
-"PO-Revision-Date: 2013-12-05 18:39:26+0000\n"
+"PO-Revision-Date: 2014-03-31 21:47:47+0000\n"
 "Last-Translator: Daniel Hoffmann <hoffmann@intermedi8.de>\n"
 "Language-Team: Daniel Hoffmann <hoffmann@intermedi8.de>\n"
 "MIME-Version: 1.0\n"
@@ -20,14 +20,14 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: im8-exclude-pages.php:239
+#: im8-exclude-pages.php:280
 #@ im8-exclude-pages
 msgid "Exclude Page"
 msgstr "Seite ausschließen"
 
 #. translators: plugin header field 'Name'
 #: im8-exclude-pages.php:0
-#: im8-exclude-pages.php:375
+#: im8-exclude-pages.php:506
 #@ im8-exclude-pages
 msgid "IM8 Exclude Pages"
 msgstr ""
@@ -38,7 +38,7 @@ msgstr ""
 msgid "http://intermedi8.de"
 msgstr ""
 
-#: im8-exclude-pages.php:407
+#: im8-exclude-pages.php:541
 #@ im8-exclude-pages
 msgid "Exclude new pages by default"
 msgstr "Neue Seiten standardmäßig ausschließen"
@@ -49,24 +49,12 @@ msgstr "Neue Seiten standardmäßig ausschließen"
 msgid "Adds a meta box to the Edit Page page where you can set to show or exclude the page from page listings."
 msgstr "Fügt Seiten eine Metabox hinzu, um festzulegen, ob die Seite von Listings ausgeschlossen wird oder nicht."
 
-#. translators: plugin header field 'Author'
-#: im8-exclude-pages.php:0
-#@ im8-exclude-pages
-msgid "intermedi8"
-msgstr ""
-
-#: im8-exclude-pages.php:262
-#, php-format
-#@ im8-exclude-pages
-msgid "<p><b>NOTICE:</b> This page is automatically excluded as its ancestor page <a href=\"%1$s\">%2$s</a> is currently excluded, too. This setting will have no effect unless you disable the exclusion of the ancestor page.</p>"
-msgstr "<p><b>HINWEIS:</b> Diese Seite wird automatisch ausgeschlossen, da die übergeordnete Seite <a href=\\%1$s\">%2$s</a> ebenfalls ausgeschlossen wird. Diese Einstellung wird daher keine Auswirkung haben, sofern die übergeordnete Seite nicht wieder eingeblendet wird.</p>"
-
-#: im8-exclude-pages.php:273
+#: im8-exclude-pages.php:331
 #@ im8-exclude-pages
 msgid "Exclude page from page listings"
 msgstr "Seite von Listings ausschließen"
 
-#: im8-exclude-pages.php:330
+#: im8-exclude-pages.php:397
 #@ default
 msgid "Settings"
 msgstr ""
@@ -77,9 +65,27 @@ msgstr ""
 msgid "http://wordpress.org/plugins/im8-exclude-pages/"
 msgstr ""
 
+#. translators: plugin header field 'Author'
+#: im8-exclude-pages.php:0
+#@ im8-exclude-pages
+msgid "intermedi8, ipm-frommen"
+msgstr ""
+
 #. translators: plugin header field 'Version'
 #: im8-exclude-pages.php:0
 #@ im8-exclude-pages
-msgid "2.2"
+msgid "2.7"
 msgstr ""
+
+#: im8-exclude-pages.php:553
+#@ im8-exclude-pages
+msgid "Exclude pages from search"
+msgstr "Seiten von der Suche ausschließen"
+
+#: im8-exclude-pages.php:312
+#, php-format
+#@ im8-exclude-pages
+msgctxt "%s = URL of ancestor page, %s = title of ancestor page"
+msgid "<b>NOTICE:</b> This page is automatically excluded as its ancestor page <a href=\"%s\">%s</a> is currently excluded, too. This setting will have no effect unless you disable the exclusion of the ancestor page."
+msgstr "<b>HINWEIS:</b> Diese Seite wird automatisch ausgeschlossen, da die übergeordnete Seite <a href=\"%s\">%s</a> ebenfalls ausgeschlossen wird. Diese Einstellung wird daher keine Auswirkung haben, sofern die übergeordnete Seite nicht wieder eingeblendet wird."
 
